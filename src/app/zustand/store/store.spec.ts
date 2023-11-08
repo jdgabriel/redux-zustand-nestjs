@@ -1,4 +1,5 @@
-import { PlayerState, next, play, player as reducer } from "./player";
+import { PlayerState } from "@/@types/player-state";
+import { usePlayerStore } from ".";
 
 const INITIAL_STATE_EXAMPLE: PlayerState = {
   course: {
@@ -30,41 +31,43 @@ const INITIAL_STATE_EXAMPLE: PlayerState = {
 
 describe("Player Slice", () => {
   it("should be able to play", () => {
-    const state = reducer(INITIAL_STATE_EXAMPLE, play([1, 2]));
+    usePlayerStore.setState(INITIAL_STATE_EXAMPLE);
+    usePlayerStore.getState().play([1, 2]);
+    const state = usePlayerStore.getState();
     expect(state.currentModuleOpenedIndex).toEqual(1);
     expect(state.currentModuleIndex).toEqual(1);
     expect(state.currentLessonIndex).toEqual(2);
   });
 
   it("should be able to play next video automatically", () => {
-    const state = reducer(INITIAL_STATE_EXAMPLE, next());
+    usePlayerStore.setState(INITIAL_STATE_EXAMPLE);
+    usePlayerStore.getState().next();
+    const state = usePlayerStore.getState();
     expect(state.currentModuleOpenedIndex).toEqual(0);
     expect(state.currentModuleIndex).toEqual(0);
     expect(state.currentLessonIndex).toEqual(1);
   });
 
   it("should be able to jump to the next module automatically", () => {
-    const state = reducer(
-      {
-        ...INITIAL_STATE_EXAMPLE,
-        currentLessonIndex: 1,
-      },
-      next()
-    );
+    usePlayerStore.setState({
+      ...INITIAL_STATE_EXAMPLE,
+      currentLessonIndex: 1,
+    });
+    usePlayerStore.getState().next();
+    const state = usePlayerStore.getState();
     expect(state.currentModuleOpenedIndex).toEqual(1);
     expect(state.currentModuleIndex).toEqual(1);
     expect(state.currentLessonIndex).toEqual(0);
   });
 
   it("should not update theme current module and lesson index if there is no next lesson available", () => {
-    const state = reducer(
-      {
-        ...INITIAL_STATE_EXAMPLE,
-        currentLessonIndex: 1,
-        currentModuleIndex: 1,
-      },
-      next()
-    );
+    usePlayerStore.setState({
+      ...INITIAL_STATE_EXAMPLE,
+      currentLessonIndex: 1,
+      currentModuleIndex: 1,
+    });
+    usePlayerStore.getState().next();
+    const state = usePlayerStore.getState();
     expect(state.currentModuleIndex).toEqual(1);
     expect(state.currentLessonIndex).toEqual(1);
   });

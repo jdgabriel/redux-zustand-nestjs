@@ -1,4 +1,5 @@
-import { PlayerState, next, play, player as reducer } from "./player";
+import { PlayerState } from "@/@types/player-state";
+import { next, play, player as reducer } from "./player";
 
 const INITIAL_STATE_EXAMPLE: PlayerState = {
   course: {
