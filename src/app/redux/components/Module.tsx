@@ -1,7 +1,7 @@
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useDispatch } from "react-redux";
 import { useCurrentIndexes } from "../hooks/useCurrentIndexes";
 import { useGetLessons } from "../hooks/useGetLessons";
+import { useAppDispatch } from "../store";
 import { play } from "../store/slices/player";
 import Lesson from "./Lesson";
 
@@ -12,7 +12,7 @@ interface ModuleItemProps {
 }
 
 export default function Module({ title, moduleIndex, amountOfLessons }: ModuleItemProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const lessons = useGetLessons(moduleIndex);
   const { currentModuleIndex, currentLessonIndex } = useCurrentIndexes();
 
@@ -31,15 +31,16 @@ export default function Module({ title, moduleIndex, amountOfLessons }: ModuleIt
       </AccordionTrigger>
       <AccordionContent>
         <div className="relative flex flex-col gap-4 p-4">
-          {lessons.map((lesson, lessonIndex) => (
-            <Lesson
-              key={lesson.id}
-              title={lesson.title}
-              duration={lesson.duration}
-              onPlay={() => dispatch(play([moduleIndex, lessonIndex]))}
-              isPlaying={currentModuleIndex === moduleIndex && currentLessonIndex === lessonIndex}
-            />
-          ))}
+          {lessons &&
+            lessons.map((lesson, lessonIndex) => (
+              <Lesson
+                key={lesson.id}
+                title={lesson.title}
+                duration={lesson.duration}
+                onPlay={() => dispatch(play([moduleIndex, lessonIndex]))}
+                isPlaying={currentModuleIndex === moduleIndex && currentLessonIndex === lessonIndex}
+              />
+            ))}
         </div>
       </AccordionContent>
     </AccordionItem>

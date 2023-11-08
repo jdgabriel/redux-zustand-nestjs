@@ -1,10 +1,11 @@
-import { next, play, player as reducer } from "./player";
+import { PlayerState, next, play, player as reducer } from "./player";
 
-const INITIAL_STATE_EXAMPLE = {
+const INITIAL_STATE_EXAMPLE: PlayerState = {
   course: {
+    id: 1,
     modules: [
       {
-        id: "1",
+        id: 1,
         title: "Iniciando com React",
         lessons: [
           { id: "Jai8w6K_GnY", title: "CSS Modules", duration: "13:45" },
@@ -12,7 +13,7 @@ const INITIAL_STATE_EXAMPLE = {
         ],
       },
       {
-        id: "2",
+        id: 2,
         title: "Estrutura da aplicação",
         lessons: [
           { id: "gE48FQXRZ_o", title: "Componente: Comment", duration: "13:45" },
@@ -21,6 +22,7 @@ const INITIAL_STATE_EXAMPLE = {
       },
     ],
   },
+  isLoading: false,
   currentModuleOpenedIndex: 0,
   currentModuleIndex: 0,
   currentLessonIndex: 0,

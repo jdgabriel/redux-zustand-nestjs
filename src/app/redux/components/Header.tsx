@@ -8,8 +8,8 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold">{currentLesson.title}</h1>
-        <span className="text-small text-zinc-400">Módulo &quot;{currentModule.title}&quot;</span>
+        <h1 className="text-2xl font-bold">{currentLesson?.title}</h1>
+        <span className="text-small text-zinc-400">Módulo &quot;{currentModule?.title}&quot;</span>
       </div>
       <Button>
         <MessageCircle className="w-5 h-5" />
