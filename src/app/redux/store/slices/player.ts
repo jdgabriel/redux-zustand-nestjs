@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   },
 };
 
-const playerSlice = createSlice({
+export const playerSlice = createSlice({
   name: "player",
   initialState: {
     ...INITIAL_STATE,
