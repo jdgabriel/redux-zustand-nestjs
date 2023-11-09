@@ -11,7 +11,7 @@ interface PlayerStore extends PlayerState {
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   course: null,
-  isLoading: false,
+  isLoading: true,
   currentModuleOpenedIndex: 0,
   currentModuleIndex: 0,
   currentLessonIndex: 0,
